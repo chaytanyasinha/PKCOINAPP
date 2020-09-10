@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<DeployedContract> loadContract() async {
     String abi = await rootBundle.loadString("assets/abi.json");
-    String contractAddress = "0x62FDc8223AD1B11c27aB1Eb2e77f53754c3777f0";
+    String contractAddress = "";
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, "PKCoin"),
         EthereumAddress.fromHex(contractAddress));
@@ -155,8 +155,28 @@ class _MyHomePageState extends State<MyHomePage> {
                 print(myAmount);
               },
             ).centered(),
-            HStack(
-              [
+            Wrap(
+              children: [
+                FlatButton.icon(
+                  onPressed: () => sendCoin(),
+                  color: Colors.green,
+                  shape: Vx.roundedSm,
+                  icon: Icon(
+                    Icons.call_made,
+                    color: Colors.white,
+                  ),
+                  label: "Deposit".text.white.make(),
+                ).h(50),
+                FlatButton.icon(
+                  onPressed: () => withdrawCoin(),
+                  color: Colors.red,
+                  shape: Vx.roundedSm,
+                  icon: Icon(
+                    Icons.call_received,
+                    color: Colors.white,
+                  ),
+                  label: "Withdraw".text.white.make(),
+                ).h(50),
                 FlatButton.icon(
                   onPressed: () => getBalance(myAddress),
                   color: Colors.blue,
@@ -167,34 +187,15 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                   label: "Refesh".text.white.make(),
                 ).h(50),
-                FlatButton.icon(
-                  onPressed: () => sendCoin(),
-                  color: Colors.green,
-                  shape: Vx.roundedSm,
-                  icon: Icon(
-                    Icons.call_made_outlined,
-                    color: Colors.white,
-                  ),
-                  label: "Deposit".text.white.make(),
-                ).h(50),
-                FlatButton.icon(
-                  onPressed: () => withdrawCoin(),
-                  color: Colors.red,
-                  shape: Vx.roundedSm,
-                  icon: Icon(
-                    Icons.call_received_outlined,
-                    color: Colors.white,
-                  ),
-                  label: "Withdraw".text.white.make(),
-                ).h(50),
               ],
-              alignment: MainAxisAlignment.spaceAround,
-              axisSize: MainAxisSize.max,
-            ).p16(),
+              alignment: WrapAlignment.center,
+              spacing: 10.0,
+              runSpacing: 10.0,
+            ).centered().p16(),
           ]),
           if (txHash != null)
             Positioned(
-                bottom: -600.0,
+                bottom: -550.0,
                 child: "Last Transaction Hash: $txHash"
                     .text
                     .textStyle(context.captionStyle)
