@@ -54,7 +54,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future<DeployedContract> loadContract() async {
     String abi = await rootBundle.loadString("assets/abi.json");
-    String contractAddress = "";
+    String contractAddress = "0x62FDc8223AD1B11c27aB1Eb2e77f53754c3777f0";
 
     final contract = DeployedContract(ContractAbi.fromJson(abi, "PKCoin"),
         EthereumAddress.fromHex(contractAddress));
